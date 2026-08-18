@@ -155,10 +155,12 @@ chmod +x start.sh
 
 Esse script:
 - verifica se Java, Maven e Node.js estão instalados
+- libera as portas 8080 e 4200 caso haja processos antigos
 - inicia o backend em background
 - espera a API responder em http://localhost:8080
 - inicia o frontend em modo de desenvolvimento
 - salva os logs em `backend.log` e `frontend.log`
+- evita conflitos de porta ao reiniciar a aplicação
 
 ### Backend (Spring Boot)
 

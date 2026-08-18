@@ -19,10 +19,12 @@ chmod +x start.sh
 
 ### O que o script faz
 - valida se Java, Maven, Node.js e npm estão instalados
+- libera automaticamente as portas 8080 e 4200 para evitar conflitos
 - inicia o backend em background
 - aguarda a API responder em http://localhost:8080
 - inicia o frontend em modo de desenvolvimento
 - grava os logs em `backend.log` e `frontend.log` na raiz do projeto
+- permite reinicialização limpa sem falhar por processos antigos ocupando as portas
 
 ### Logs
 O script salva a saída do backend em `backend.log` e a do frontend em `frontend.log`, permitindo acompanhar a inicialização sem perder a visão do terminal principal.
