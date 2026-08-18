@@ -1,0 +1,6 @@
+angular.json
+node_modules/
+dist/
+*.log
+.DS_Store
+src/environments/environment.prod.ts

@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:14-alpine
+    container_name: attus-postgres
+    environment:
+      POSTGRES_DB: attus_db
+      POSTGRES_USER: attus_user
+      POSTGRES_PASSWORD: attus_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/src/main/resources/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U attus_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - attus-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: attus-backend
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/attus_db
+      SPRING_DATASOURCE_USERNAME: attus_user
+      SPRING_DATASOURCE_PASSWORD: attus_password
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - attus-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: attus-frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - backend
+    networks:
+      - attus-network
+
+volumes:
+  postgres_data:
+
+networks:
+  attus-network:
+    driver: bridge

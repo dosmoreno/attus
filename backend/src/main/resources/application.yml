@@ -1,0 +1,59 @@
+spring:
+  application:
+    name: attus-backend
+
+  # JPA & Hibernate Configuration
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+        jdbc:
+          batch_size: 20
+        order_inserts: true
+        order_updates: true
+
+  # DataSource Configuration - H2 (Development)
+  datasource:
+    url: jdbc:h2:mem:attusdb
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 10
+      minimum-idle: 2
+      connection-timeout: 20000
+
+  h2:
+    console:
+      enabled: true
+
+  # Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.attus: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: WARN
+    org.springframework.data: DEBUG
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/attus-backend.log
+    max-size: 10MB
+    max-history: 10
+
+# Server Configuration
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+# Application version
+app:
+  version: 1.0.0
+  name: Attus Task Management System

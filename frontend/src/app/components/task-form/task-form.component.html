@@ -1,0 +1,100 @@
+<div class="form-wrapper">
+  <div class="form-header">
+    <h2>{{ task && task.id ? 'Edit Task' : 'Create New Task' }}</h2>
+    <button class="close-btn" (click)="onClose()">&times;</button>
+  </div>
+
+  <form (ngSubmit)="onSubmit()" class="task-form">
+    <!-- Error message -->
+    <div *ngIf="error" class="alert alert-error">
+      {{ error }}
+    </div>
+
+    <!-- Title field -->
+    <div class="form-group">
+      <label for="title">Title *</label>
+      <input
+        id="title"
+        type="text"
+        [(ngModel)]="formData.title"
+        name="title"
+        placeholder="Enter task title"
+        maxlength="255"
+        class="form-control"
+        [class.is-invalid]="validationErrors['title']"
+      />
+      <small class="char-count">{{ getCharacterCount('title', 255) }}</small>
+      <div *ngIf="validationErrors['title']" class="error-message">
+        {{ validationErrors['title'] }}
+      </div>
+    </div>
+
+    <!-- Description field -->
+    <div class="form-group">
+      <label for="description">Description</label>
+      <textarea
+        id="description"
+        [(ngModel)]="formData.description"
+        name="description"
+        placeholder="Enter task description"
+        maxlength="1000"
+        rows="4"
+        class="form-control"
+        [class.is-invalid]="validationErrors['description']"
+      ></textarea>
+      <small class="char-count">{{ getCharacterCount('description', 1000) }}</small>
+      <div *ngIf="validationErrors['description']" class="error-message">
+        {{ validationErrors['description'] }}
+      </div>
+    </div>
+
+    <!-- Status field -->
+    <div class="form-group">
+      <label for="status">Status</label>
+      <select
+        id="status"
+        [(ngModel)]="formData.status"
+        name="status"
+        class="form-control"
+      >
+        <option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Priority field -->
+    <div class="form-group">
+      <label for="priority">Priority</label>
+      <select
+        id="priority"
+        [(ngModel)]="formData.priority"
+        name="priority"
+        class="form-control"
+      >
+        <option *ngFor="let priority of priorityOptions" [value]="priority">
+          {{ priority }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Form actions -->
+    <div class="form-actions">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="onClose()"
+        [disabled]="loading"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        class="btn btn-primary"
+        [disabled]="loading"
+      >
+        {{ loading ? 'Saving...' : (task && task.id ? 'Update Task' : 'Create Task') }}
+      </button>
+    </div>
+  </form>
+</div>
