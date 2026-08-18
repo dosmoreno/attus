@@ -26,16 +26,20 @@ if [ -d "$FRONTEND_DIR" ] && [ ! -d "$FRONTEND_DIR/node_modules" ]; then
   npm install
 fi
 
-if lsof -i :8080 >/dev/null 2>&1; then
-  echo "==> Porta 8080 já está em uso. O backend não será iniciado novamente."
-else
-  echo "==> Iniciando backend em background..."
-  cd "$BACKEND_DIR"
-  nohup mvn spring-boot:run > "$BACKEND_LOG" 2>&1 &
-  BACKEND_PID=$!
-  echo "Backend iniciado com PID: $BACKEND_PID"
-  echo "Log do backend: $BACKEND_LOG"
-fi
+echo "==> Liberando portas ocupadas por processos antigos..."
+for port in 8080 4200; do
+  if lsof -ti :"$port" >/dev/null 2>&1; then
+    echo "==> Matando processos da porta $port"
+    lsof -ti :"$port" | xargs -r kill -9
+  fi
+done
+
+echo "==> Iniciando backend em background..."
+cd "$BACKEND_DIR"
+nohup mvn spring-boot:run > "$BACKEND_LOG" 2>&1 &
+BACKEND_PID=$!
+echo "Backend iniciado com PID: $BACKEND_PID"
+echo "Log do backend: $BACKEND_LOG"
 
 for i in $(seq 1 20); do
   if curl -sf http://localhost:8080/api/v1/tasks >/dev/null 2>&1; then
