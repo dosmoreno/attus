@@ -14,11 +14,11 @@ describe('TaskFormComponent', () => {
     id: 1,
     title: 'Test Task',
     description: 'Test Description',
-    status: 'PENDING',
-    priority: 'HIGH',
+    status: TaskStatus.PENDING,
+    priority: TaskPriority.HIGH,
     createdAt: new Date(),
     updatedAt: new Date(),
-    completedAt: null
+    completedAt: undefined
   };
 
   beforeEach(async () => {

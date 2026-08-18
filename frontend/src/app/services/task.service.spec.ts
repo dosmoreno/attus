@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TaskService } from './task.service';
-import { Task, CreateTaskRequest, UpdateTaskRequest } from '../models/task.model';
+import { Task, TaskStatus, TaskPriority, CreateTaskRequest, UpdateTaskRequest } from '../models/task.model';
 
 describe('TaskService', () => {
   let service: TaskService;
@@ -29,18 +29,18 @@ describe('TaskService', () => {
           id: 1,
           title: 'Task 1',
           description: 'Description 1',
-          status: 'PENDING',
-          priority: 'HIGH',
+          status: TaskStatus.PENDING,
+          priority: TaskPriority.HIGH,
           createdAt: new Date(),
           updatedAt: new Date(),
-          completedAt: null
+          completedAt: undefined
         },
         {
           id: 2,
           title: 'Task 2',
           description: 'Description 2',
-          status: 'COMPLETED',
-          priority: 'LOW',
+          status: TaskStatus.COMPLETED,
+          priority: TaskPriority.LOW,
           createdAt: new Date(),
           updatedAt: new Date(),
           completedAt: new Date()
@@ -94,11 +94,11 @@ describe('TaskService', () => {
         id: 1,
         title: 'Task 1',
         description: 'Description 1',
-        status: 'PENDING',
-        priority: 'HIGH',
+        status: TaskStatus.PENDING,
+        priority: TaskPriority.HIGH,
         createdAt: new Date(),
         updatedAt: new Date(),
-        completedAt: null
+        completedAt: undefined
       };
 
       // Act
@@ -134,19 +134,19 @@ describe('TaskService', () => {
       const newTask: CreateTaskRequest = {
         title: 'New Task',
         description: 'New Description',
-        status: 'PENDING',
-        priority: 'MEDIUM'
+        status: TaskStatus.PENDING,
+        priority: TaskPriority.MEDIUM
       };
 
       const createdTask: Task = {
         id: 5,
         title: 'New Task',
         description: 'New Description',
-        status: 'PENDING',
-        priority: 'MEDIUM',
+        status: TaskStatus.PENDING,
+        priority: TaskPriority.MEDIUM,
         createdAt: new Date(),
         updatedAt: new Date(),
-        completedAt: null
+        completedAt: undefined
       };
 
       // Act
@@ -188,15 +188,15 @@ describe('TaskService', () => {
       const taskId = 1;
       const updateData: UpdateTaskRequest = {
         title: 'Updated Task',
-        status: 'COMPLETED'
+        status: TaskStatus.COMPLETED
       };
 
       const updatedTask: Task = {
         id: 1,
         title: 'Updated Task',
         description: 'Original Description',
-        status: 'COMPLETED',
-        priority: 'HIGH',
+        status: TaskStatus.COMPLETED,
+        priority: TaskPriority.HIGH,
         createdAt: new Date(),
         updatedAt: new Date(),
         completedAt: new Date()
@@ -274,8 +274,8 @@ describe('TaskService', () => {
           id: 1,
           title: 'Completed Task',
           description: 'Description',
-          status: 'COMPLETED',
-          priority: 'HIGH',
+          status: TaskStatus.COMPLETED,
+          priority: TaskPriority.HIGH,
           createdAt: new Date(),
           updatedAt: new Date(),
           completedAt: new Date()
@@ -315,11 +315,11 @@ describe('TaskService', () => {
           id: 1,
           title: 'High Priority Task',
           description: 'Description',
-          status: 'PENDING',
-          priority: 'HIGH',
+          status: TaskStatus.PENDING,
+          priority: TaskPriority.HIGH,
           createdAt: new Date(),
           updatedAt: new Date(),
-          completedAt: null
+          completedAt: undefined
         }
       ];
 

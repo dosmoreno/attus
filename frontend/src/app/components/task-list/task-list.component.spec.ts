@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TaskListComponent } from './task-list.component';
 import { TaskService } from '../../services/task.service';
-import { Task } from '../../models/task.model';
+import { Task, TaskStatus, TaskPriority } from '../../models/task.model';
 import { of, throwError } from 'rxjs';
 
 describe('TaskListComponent', () => {
@@ -15,18 +15,18 @@ describe('TaskListComponent', () => {
       id: 1,
       title: 'Task 1',
       description: 'Description 1',
-      status: 'PENDING',
-      priority: 'HIGH',
+      status: TaskStatus.PENDING,
+      priority: TaskPriority.HIGH,
       createdAt: new Date(),
       updatedAt: new Date(),
-      completedAt: null
+      completedAt: undefined
     },
     {
       id: 2,
       title: 'Task 2',
       description: 'Description 2',
-      status: 'COMPLETED',
-      priority: 'LOW',
+      status: TaskStatus.COMPLETED,
+      priority: TaskPriority.LOW,
       createdAt: new Date(),
       updatedAt: new Date(),
       completedAt: new Date()
@@ -153,7 +153,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(1);
+      expect(component.filteredTasks.length).toBe(1);
       expect(component.filteredTasks[0].status).toBe('PENDING');
     });
 
@@ -164,7 +164,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(1);
+      expect(component.filteredTasks.length).toBe(1);
       expect(component.filteredTasks[0].priority).toBe('HIGH');
     });
 
@@ -175,7 +175,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(1);
+      expect(component.filteredTasks.length).toBe(1);
       expect(component.filteredTasks[0].title).toContain('Task 1');
     });
 
@@ -186,7 +186,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(1);
+      expect(component.filteredTasks.length).toBe(1);
       expect(component.filteredTasks[0].description).toContain('Description 2');
     });
 
@@ -197,7 +197,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(1);
+      expect(component.filteredTasks.length).toBe(1);
       expect(component.filteredTasks[0].status).toBe('PENDING');
       expect(component.filteredTasks[0].priority).toBe('HIGH');
     });
@@ -209,7 +209,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(1);
+      expect(component.filteredTasks.length).toBe(1);
       expect(component.filteredTasks[0].title).toContain('Task 1');
     });
 
@@ -220,7 +220,7 @@ describe('TaskListComponent', () => {
 
       component.applyFilters();
 
-      expect(component.filteredTasks).toHaveLength(0);
+      expect(component.filteredTasks.length).toBe(0);
     });
   });
 
