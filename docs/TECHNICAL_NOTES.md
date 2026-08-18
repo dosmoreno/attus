@@ -4,6 +4,34 @@
 
 Este documento fornece uma visão geral das decisões técnicas, trade-offs e possíveis melhorias futuras para o projeto Attus.
 
+## 0. Script de Inicialização do Projeto
+
+### Objetivo
+O projeto inclui um script chamado [start.sh](../start.sh) para facilitar a subida local do backend e do frontend em uma única execução.
+
+### Como usar
+
+```bash
+cd /caminho/para/o/projeto
+chmod +x start.sh
+./start.sh
+```
+
+### O que o script faz
+- valida se Java, Maven, Node.js e npm estão instalados
+- inicia o backend em background
+- aguarda a API responder em http://localhost:8080
+- inicia o frontend em modo de desenvolvimento
+- grava os logs em `backend.log` e `frontend.log` na raiz do projeto
+
+### Logs
+O script salva a saída do backend em `backend.log` e a do frontend em `frontend.log`, permitindo acompanhar a inicialização sem perder a visão do terminal principal.
+
+### Quando usar
+- para subir a aplicação localmente pela primeira vez
+- para reexecutar o ambiente rápido após alterações
+- para validar integração backend + frontend sem repetir comandos manualmente
+
 ## 1. Decisões Tecnológicas
 
 ### 1.1 Stack Escolhido

@@ -144,6 +144,22 @@ npm install
 
 ## ▶️ Execução
 
+### Opção rápida: script de inicialização
+
+Na raiz do projeto, execute:
+
+```bash
+chmod +x start.sh
+./start.sh
+```
+
+Esse script:
+- verifica se Java, Maven e Node.js estão instalados
+- inicia o backend em background
+- espera a API responder em http://localhost:8080
+- inicia o frontend em modo de desenvolvimento
+- salva os logs em `backend.log` e `frontend.log`
+
 ### Backend (Spring Boot)
 
 ```bash
@@ -292,6 +308,14 @@ Veja [docs/INCIDENT_ANALYSIS.md](docs/INCIDENT_ANALYSIS.md) para:
 - Correções implementadas
 - Medidas de prevenção
 - Métricas de melhoria
+
+### Script de Inicialização
+Veja [start.sh](start.sh) para:
+- subir backend e frontend com um único comando
+- verificar dependências do ambiente
+- iniciar o backend em background
+- registrar logs em `backend.log` e `frontend.log`
+- facilitar execução local e validação rápida
 
 ## 🎨 Decisões de Design
 
